@@ -1,0 +1,44 @@
+﻿20180716 晴
+第一次记录工作笔记
+早上安庆烟草客户反应页面无法访问，已经是第N次出现这个问题了，之前一直没在意
+把tomcat运行日志都翻出来看了一下，找到了如下错误：
+
+16-Jul-2018 17:03:59.393 信息 [http-nio-80-exec-15] org.apache.coyote.http11.Http11Processor.service Error parsing HTTP request header
+ Note: further occurrences of HTTP header parsing errors will be logged at DEBUG level.
+ java.lang.IllegalArgumentException: Invalid character found in the request target. The valid characters are defined in RFC 7230 and RFC 3986
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:472)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:683)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:868)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1455)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+
+通过百度找到了一篇靠谱的解决办法：
+
+https://blog.yoodb.com/yoodb/article/detail/1359
+
+解决The valid characters are defined in RFC 7230 and RFC 3986错误问题
+
+最近在朋友遇到一个比较诧异的异常问题，tomcat启动时报Invalid character found in the request target. The valid characters are defined in RFC 7230 and RFC 3986错误，具体日志信息如下图所示：
+
+分析原因：
+
+导致上述问题是因为tomcat自tomcat 8.0.35版本之后对URL参数做了比较规范的限制，必须遵循RFC 7230 and RFC 3986规范，对于非保留字字符（json格式的请求参数）必须做转义操作，否则会抛出Invalid character found in the request target. The valid characters are defined in RFC 7230 and RFC 3986错误信息。
+
+
+
+解决办法有很多方式，具体如下几种：
+
+1. 遵循7230 and RFC 3986规范，对于非保留字字符做转义操作
+
+2. 使用保留字字符
+
+3. 降低tomcat版本
+
+4. 将json数据进行urlencode编码
+
+个人建议从目前的角度出发使用第三种方式降低tomcat版本就可以了，如果从长远出发的话，建议遵循RFC 7230 and RFC 3986规范，对于非保留字字符（json格式的请求参数）做转义操作。
