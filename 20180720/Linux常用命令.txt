@@ -1,0 +1,111 @@
+经常操作linux系统，可是除了跟发布服务有关的其他命令每次都要百度
+这里就做一下记录呗，以后遇到了就记一下
+
+首先在博客上找到一个比较全的
+https://www.cnblogs.com/yjd_hycf_space/p/7730690.html
+
+包含了:
+查看系统信息
+arch 显示机器的处理器架构(1) 
+uname -m 显示机器的处理器架构(2) 
+uname -r 显示正在使用的内核版本 
+dmidecode -q 显示硬件系统部件 - (SMBIOS / DMI) 
+hdparm -i /dev/hda 罗列一个磁盘的架构特性 
+hdparm -tT /dev/sda 在磁盘上执行测试性读取操作 
+cat /proc/cpuinfo 显示CPU info的信息 
+cat /proc/interrupts 显示中断 
+cat /proc/meminfo 校验内存使用 
+cat /proc/swaps 显示哪些swap被使用 
+cat /proc/version 显示内核的版本 
+cat /proc/net/dev 显示网络适配器及统计 
+cat /proc/mounts 显示已加载的文件系统 
+lspci -tv 罗列 PCI 设备 
+lsusb -tv 显示 USB 设备 
+date 显示系统日期 
+cal 2007 显示2007年的日历表 
+date 041217002007.00 设置日期和时间 - 月日时分年.秒 （这个命令我比较常用的是 date -s "2018-09-10 23:57:00" ）
+clock -w 将时间修改保存到 BIOS
+
+文件和目录 
+pwd 显示工作路径 
+ls 查看目录中的文件 
+ls -F 查看目录中的文件 
+ls -l 显示文件和目录的详细资料 
+ls -a 显示隐藏文件 
+ls *[0-9]* 显示包含数字的文件名和目录名 
+tree 显示文件和目录由根目录开始的树形结构(1) 
+lstree 显示文件和目录由根目录开始的树形结构(2) 
+mkdir dir1 创建一个叫做 'dir1' 的目录' 
+mkdir dir1 dir2 同时创建两个目录 
+mkdir -p /tmp/dir1/dir2 创建一个目录树 
+rm -f file1 删除一个叫做 'file1' 的文件' 
+rmdir dir1 删除一个叫做 'dir1' 的目录' 
+rm -rf dir1 删除一个叫做 'dir1' 的目录并同时删除其内容 
+rm -rf dir1 dir2 同时删除两个目录及它们的内容 
+mv dir1 new_dir 重命名/移动 一个目录 
+cp file1 file2 复制一个文件 
+cp dir/* . 复制一个目录下的所有文件到当前工作目录 
+cp -a /tmp/dir1 . 复制一个目录到当前工作目录 
+cp -a dir1 dir2 复制一个目录 
+
+文件搜索 
+find / -name file1 从 '/' 开始进入根文件系统搜索文件和目录 
+find / -user user1 搜索属于用户 'user1' 的文件和目录 
+find /home/user1 -name \*.bin 在目录 '/ home/user1' 中搜索带有'.bin' 结尾的文件 
+find /usr/bin -type f -atime +100 搜索在过去100天内未被使用过的执行文件 
+find /usr/bin -type f -mtime -10 搜索在10天内被创建或者修改过的文件 
+find / -name \*.rpm -exec chmod 755 '{}' \; 搜索以 '.rpm' 结尾的文件并定义其权限 
+find / -xdev -name \*.rpm 搜索以 '.rpm' 结尾的文件，忽略光驱、捷盘等可移动设备 
+locate \*.ps 寻找以 '.ps' 结尾的文件 - 先运行 'updatedb' 命令 
+whereis halt 显示一个二进制文件、源码或man的位置 
+which halt 显示一个二进制文件或可执行文件的完整路径 
+
+磁盘空间 
+df -h 显示已经挂载的分区列表 
+ls -lSr |more 以尺寸大小排列文件和目录 
+du -sh dir1 估算目录 'dir1' 已经使用的磁盘空间' 
+du -sk * | sort -rn 以容量大小为依据依次显示文件和目录的大小 
+rpm -q -a --qf '%10{SIZE}t%{NAME}n' | sort -k1,1n 以大小为依据依次显示已安装的rpm包所使用的空间 (fedora, redhat类系统) 
+dpkg-query -W -f='${Installed-Size;10}t${Package}n' | sort -k1,1n 以大小为依据显示已安装的deb包所使用的空间 (ubuntu, debian类系统) 
+
+
+
+之前用过几次vim 这里也记录一下吧
+
+如果系统装了vim直接用vim命令打开，如果没装百度装一下喽
+
+然后【i, I】 进入编辑模式：
+i 为【从目前光标所在处插入】
+I 为【在目前所在行的第一个非空格符处开始插入】
+ 
+【a, A】 进入编辑模式(Insert mode)：
+a 为【从目前光标所在的下一个字符处开始插入】
+A 为【从光标所在行的最后一个字符处开始插入】
+
+【o, O】 进入编辑模式：
+o 为【在目前光标所在的下一行处插入新的一行】
+O 为在目前光标所在处的上一行插入新的一行
+
+【r, R】 进入取代模式：
+r 只会取代光标所在的那一个字符一次
+R会一直取代光标所在的文字，直到按下 ESC 为止；
+
+【Esc】 退出编辑模式，回到一般模式
+
+一般模式切换到命令行模式可用的按钮说明
+【:w】 保存编辑的内容
+【:w!】强制写入该文件，但跟你对该文件的权限有关
+【:q】 离开vi
+【:q!】 不想保存修改强制离开
+【:wq】 保存后离开
+【:x】 保存后离开
+【ZZ】 若文件没有更动，则不保存离开，若文件已经被更改过，则保存后离开
+
+【:w filename】 将编辑的数据保存成另一个文件（类似另存）
+【:r filename】 在编辑的数据中，读入另一个文件的数据。即将【filename】 这个文件的内容加到光标所在行后面。
+
+【:n1,n2 w filename】 将n1到n2的内容保存成filename这个文件。
+【:! command】暂时离开vi 到命令行模式下执行command的显示结果！例如 【:! ls /home】即可在 vi 当中察看/home底下以ls输出的文件信息！
+
+【:set nu】 显示行号
+【:set nonu】 与 set nu 相反，为取消行
