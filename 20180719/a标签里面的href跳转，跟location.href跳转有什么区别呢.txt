@@ -1,0 +1,23 @@
+有一个bug百思不得其解
+好好的H5页面在安卓机上就能正常跳转，为什么在IOS上就有问题呢
+仔细看了一下，该跳转是给a标签绑定了一个onclick事件，然后再事件里面写了location.href进行的跳转
+我尝试这把跳转方式改成a标签自带的href，居然就解决了
+可是这是为什么呢
+
+emmmm.......
+百度了很多似乎跟我的情况都不一样
+
+Wherever possible, you should use <a href="foo.html"> over window.location.href, for a number of very good reasons.
+
+If you have javascript disabled, none of the links would work.
+Spiders, such as Google Bot, do not interpret javascript, and so they won't follow any of your links.
+IT BREAKS THE INTERNET. No, really though - the World Wide Web is built on the very basis of discoverable linkages between pages. Hiding these linkages with non-standard .. err, links, goes against that very premise.
+It makes for a bad user experience: a user expects that when they mouse over a link, they will have access to some information:
+the destination displayed in the status bar (very important!)
+right-click -> copy link location
+middle-click -> open new tab
+etc
+Using window.location breaks all of these
+It's much easier!
+
+这一段看不懂，先记下来，以后有时间看看
