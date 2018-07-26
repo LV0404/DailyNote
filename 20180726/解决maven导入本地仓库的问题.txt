@@ -1,0 +1,73 @@
+今天搞钱包的项目，少jar包，张栋把jar包发给我
+可是我不会搞进来啊
+然后百度了一下
+maven怎么引本地jar包
+得到了
+mvn install:install-file -Dfile=D:\libs\dahantc-http-json-api-resource.jar -DgroupId=dahantc -DartifactId=http-json-api-resource -Dversion=0.0.1-SNAPSHOT -Dpackaging=jar
+执行，看了一下本地仓库，哎，有了
+可是为什么还是执行不起来呢
+废了老半天得劲，发现eclipse集成的maven不是我本地安装的maven所以倒进来了也没用啊
+于是修改eclipse里面Maven的配置
+
+https://www.cnblogs.com/teach/p/5906425.html
+
+ 1、在windows-->>preferences中找到maven选项
+ 2、找到maven-->>installations，选择add按钮，找到刚才解压的maven的路径
+ 3、找到User settings，修改配置文件为本地maven里面的settings文件
+ 
+ 试了一下，没问题了
+ 
+ 可是jetty:run的时候又报错
+ 
+ 如下：
+[ERROR] No plugin found for prefix 'jetty' in the current project and in the plugin groups [org.apache.maven.plugins, org.codehaus.mojo] available from the repositories [local (D:\mvnRespo), UK (http://uk.maven.org/maven2)] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/NoPluginFoundForPrefixException
+
+哎，一步一个坎，搞得心烦了都
+
+继续百度吧。。。
+
+这样的问题，其实就是说，maven不知道这个插件在哪里，所以我们需要配置或者加参数。
+
+
+
+    解决：
+
+    方法1：(亲测无效！！)
+
+    执行的时候是这样的：
+
+        mvn org.mortbay.jetty:maven-jetty-plugin:run
+
+    或：
+
+       mvn org.eclipse.jetty:maven-jetty-plugin:run
+
+
+
+    方法2：（可行！！）
+
+    在maven的配置文件插件组上添加插件：
+
+    <pluginGroups>
+
+   <pluginGroup>org.mortbay.jetty</pluginGroup> 
+
+     </pluginGroups>
+
+    或：
+
+    <pluginGroups>
+
+   <pluginGroup>org.eclipse.jetty</pluginGroup> 
+
+     </pluginGroups>
+
+
+
+    这样就可以解决！
