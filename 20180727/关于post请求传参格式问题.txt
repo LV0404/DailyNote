@@ -1,0 +1,7 @@
+20180727 阴转晴
+之前写的几个接口get和post请求都可以（框架封装好的），自己测试的时候用get请求通了就没管了
+移动端调接口的时候，用post请求的，参数用的是form-data的格式，请求不到数据，参数有问题
+我有回头试了一下，用post请求，参数用x-www-from-urlencoded，可以正常请求
+区别是啥呢？
+于是看了这篇文章
+https://blog.csdn.net/shangmingtao/article/details/74463500
