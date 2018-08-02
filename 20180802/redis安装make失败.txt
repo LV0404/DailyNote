@@ -1,0 +1,35 @@
+20180802 晴间多云
+今天拿到一台新的linux服务器，jdk、redis需要现装，jdk装的很顺利，可是redis除了一点问题记录一下
+解压后
+
+执行make后报错：
+
+cd src && make all
+make[1]: Entering directory `/home/liuchaofan/redis-3.0.7/src'
+    CC adlist.o
+/bin/sh: cc: command not found
+make[1]: *** [adlist.o] Error 127
+make[1]: Leaving directory `/home/liuchaofan/redis-3.0.7/src'
+make: *** [all] Error 2
+
+
+
+提示缺少cc，执行：yum -y install gcc gcc-c++ libstdc++-devel
+
+make继续报错：
+
+cd src && make all
+make[1]: Entering directory `/home/liuchaofan/redis-3.0.7/src'
+    CC adlist.o
+adlist.c:1: error: CPU you selected does not support x86-64 instruction set
+make[1]: *** [adlist.o] Error 1
+make[1]: Leaving directory `/home/liuchaofan/redis-3.0.7/src'
+make: *** [all] Error 2
+
+
+
+
+
+然后加上“make CFLAGS="-march=x86-64"
+
+完美安装
