@@ -1,0 +1,42 @@
+﻿url=http://app.fxh.io/api/coin/coininfo
+
+请求
+POST /api/coin/coininfo HTTP/1.1
+Host: app.fxh.io
+Cache-Control: no-cache
+Content-Type: application/x-www-form-urlencoded
+
+code=ethereum&name=ETH&market=usd
+
+响应
+{
+    "status": "true",
+    "code": "0",
+    "msg": "ok",
+    "data": {
+        "code": "ethereum",
+        "name": "Ethereum",
+        "name_zh": "以太坊",
+        "platform": "",
+        "platform_name": "全网",
+        "logo": "https://static.feixiaohao.com/coin/20180516/ethereum.webp",
+        "change": -29.06674797373143,
+        "change_percent": -1.19,
+        "price": 408,
+        "price_cny": 2790,
+        "icoprice": 1.89,
+        "high": 2824,
+        "low": 2769,
+        "maxsupply": 101171241,
+        "supply": 101171241,
+        "vol": 9544795103.917486,
+        "marketcap": 282263236803.44806,
+        "rank": 2,
+        "updatetime": 1533623937,
+        "coindesc": "Ethereum（以太坊）是一个平台和一种编程语言，使开发人员能够建立和发布下一代分布式应用。 Ethereum可以用来编程，分散，担保和交易任何事物：投票，域名，金融交易所，众筹，公司管理， 合同和大部分的协议，知识产权，还有得益于硬件集成的智能资产。以太坊将使用混合型的安全协议，前期使用工作量证明机制（POW），用于分发以太币，然后会切换到权益证明机制（POS）。自上线时起，每年都将有0.26x，即每年有60102216 * 0.26 = 15626576个以太币被矿工挖出。转成POS后，每年产出的以太币将减少",
+        "siteurl": "https://www.ethereum.org/",
+        "online_time": "2014-07-24",
+        "start_time": "2014/7/23 7:00:00",
+        "end_time": "2014/9/3 7:00:00"
+    }
+}
