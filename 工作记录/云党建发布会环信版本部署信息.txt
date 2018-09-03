@@ -1,0 +1,16 @@
+192.168.1.248
+root/22 woyidev2demo#2018
+tomcat8 /software/apache-tomcat-8.0.43
+mysql-5.6 root/dev2mysql#2018
+redis-3.2.12
+
+redis 6370
+apache 9080
+
+应用标识(AppKey)  1141180626253856#yundj-yanshi
+OrgName  1141180626253856
+AppName  yundj-yanshi
+Client ID:  YXA65g5w0KUhEei0P1F-ZzGHpA
+Client Secret:  YXA6kkQYLr5rq0Nj14_UR6WWRW4jmzw
+
+/home/yundj/apache/htdocs/

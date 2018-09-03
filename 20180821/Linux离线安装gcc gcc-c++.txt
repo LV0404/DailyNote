@@ -1,0 +1,64 @@
+2018年08月21日 晴
+新拿到一个服务器，按照惯例，安装jdk、redis、mysql、apache/nginx
+装apche的时候报错了 需要先安装gcc gcc-c++
+难不倒我啊
+yum install -y gcc gcc-c++
+可是！竟然下载不了！
+ping了一下百度，不通，也就是说没联网？？
+跟公司确认了一下，确实没联网
+只能离线安装了
+首先到链接中下载需要的安装包文件 http://vault.centos.org/6.3/os/x86_64/Packages/
+ppl-0.10.2-11.el6.x86_64.rpm
+cloog-ppl-0.15.7-1.2.el6.x86_64.rpm
+mpfr-2.4.1-6.el6.x86_64.rpm
+cpp-4.4.6-4.el6.x86_64.rpm
+kernel-headers-2.6.32-279.el6.x86_64.rpm
+glibc-headers-2.12-1.80.el6.x86_64.rpm
+glibc-devel-2.12-1.80.el6.x86_64.rpm
+libstdc++-devel-4.4.6-4.el6.x86_64.rpm
+gcc-4.4.6-4.el6.x86_64.rpm
+gcc-c++-4.4.6-4.el6.x86_64.rpm
+然后拷贝到服务器上
+安装
+[root@localhost gcc]# rpm -ivh ppl-0.10.2-11.el6.x86_64.rpm --nodeps --force 
+[root@localhost gcc]# rpm -ivh cloog-ppl-0.15.7-1.2.el6.x86_64.rpm --nodeps --force 
+[root@localhost gcc]# rpm -ivh mpfr-2.4.1-6.el6.x86_64.rpm --nodeps --force
+​[root@localhost gcc]# rpm -ivh cpp-4.4.6-4.el6.x86_64.rpm --nodeps --force
+[root@localhost gcc]# rpm -ivh kernel-headers-2.6.32-279.el6.x86_64.rpm --nodeps --force
+[root@localhost gcc]# rpm -ivh glibc-headers-2.12-1.80.el6.x86_64.rpm --nodeps --force
+[root@localhost gcc]# rpm -ivh glibc-devel-2.12-1.80.el6.x86_64.rpm --nodeps --force
+[root@localhost gcc]# rpm -ivh libstdc++-devel-4.4.6-4.el6.x86_64.rpm --nodeps --force
+[root@localhost gcc]# rpm -ivh gcc-4.4.6-4.el6.x86_64.rpm --nodeps --force
+[root@localhost gcc]# rpm -ivh gcc-c++-4.4.6-4.el6.x86_64.rpm --nodeps --force
+
+装好了，下面进入到apache下的pcre-8.34目录开始安装
+./configure --prefix=/usr/local/pcre-8.34
+又报错：
+[root@localhost pcre-8.34]# ./configure --prefix=/usr/local/apache/pcre-8.34
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a thread-safe mkdir -p... /usr/bin/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking whether make supports nested variables... (cached) yes
+checking for style of include used by make... GNU
+checking for gcc... gcc
+checking whether the C compiler works... no
+configure: error: in `/usr/local/apache/pcre-8.34':
+configure: error: C compiler cannot create executables
+See `config.log' for more details
+
+查看config.log的error如下：
+error while loading shared libraries: libgmp.so.3: cannot open shared object file: No such file or directory
+
+命令行查找libgmp.so.10发现是存在的
+[root@localhost pcre-8.34]# find / -name libgmp.so.10
+/usr/lib64/libgmp.so.10
+
+执行ls -ltr /usr/lib64/libgmp.so.10
+[root@localhost /]# ls -ltr /usr/lib64/libgmp.so.10
+lrwxrwxrwx. 1 root root 16 8月   6 16:39 /usr/lib64/libgmp.so.10 -> libgmp.so.10.2.0
+
+。。。。折腾了半天也没解决这个问题
+烦！
